@@ -1,17 +1,19 @@
 import React from 'react';
 import RedirectIfNotAuthenticated from '../Auth/RedirectIfNotAuthenticated';
-import UnchallengedUsers from "./UnchallengedUsers";
+
+import ReceivedChallenges from "./ReceivedChallenges";
+import SentChallenges from "./SentChallenges";
 
 
-export default class Main extends React.Component {
+export default class Challenges extends React.Component {
     render() {
         return (
             <div className="row">
                 <RedirectIfNotAuthenticated />
-                <UnchallengedUsers />
+                <ReceivedChallenges/>
+                <SentChallenges />
             </div>
         );
     }
 
 }
-

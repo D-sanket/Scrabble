@@ -20,4 +20,16 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::post('/auth/register', 'CustomAuthController@register');
 Route::post('/auth/login', 'CustomAuthController@login');
 
+Route::middleware(['jwt.auth'])->group(function (){
+    Route::post('/users/unchallenged', 'ChallengeController@unchallenged');
+    Route::post('/users/challengers', 'ChallengeController@challengers');
+    Route::post('/users/sentchallenges', 'ChallengeController@sentChallenges');
+    Route::post('/challenge/{id?}', 'ChallengeController@challenge');
+    Route::post('/cancelchallenge/{id?}', 'ChallengeController@cancelChallenge');
+    Route::post('/acceptchallenge/{id?}', 'ChallengeController@acceptChallenge');
+    Route::post('/declinechallenge/{id?}', 'ChallengeController@declineChallenge');
+});
+
+
+
 

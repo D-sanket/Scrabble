@@ -8,6 +8,9 @@ import Login from "./Auth/Login";
 import Logout from "./Auth/Logout";
 import Register from "./Auth/Register";
 import Header from './Header/Header';
+import Challenges from './Main/Challenges';
+import Games from './Main/Games';
+import FourZeroFour from './FourZeroFour';
 import { store }  from '../core';
 
 class Root extends React.Component {
@@ -19,9 +22,12 @@ class Root extends React.Component {
                         <Header/>
                         <Switch>
                             <Route exact path="/" component={Main}/>
+                            <Route path="/challenges" component={Challenges}/>
+                            <Route path="/games" component={Games}/>
                             <Route path="/login" component={Login}/>
                             <Route path="/register" component={Register}/>
                             <Route path="/logout" component={Logout}/>
+                            <Route component={FourZeroFour}/>
                         </Switch>
                     </div>
                 </Provider>

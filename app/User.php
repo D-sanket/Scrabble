@@ -35,4 +35,24 @@ class User extends Authenticatable implements JWTSubject
     public function getJWTCustomClaims(){
         return [];
     }
+
+    public function receivedChallenges(){
+        return $this->hasMany('App\Challenge', 'to', 'id');
+    }
+
+    public function sentChallenges(){
+        return $this->hasMany('App\Challenge', 'from', 'id');
+    }
+
+    public function hasChallenged(User $user){
+        return Challenge::where('from', $this->id)->where('to', $user->id)->count() > 0;
+    }
+
+    public function isChallengedBy(User $user){
+        return Challenge::where('to', $this->id)->where('from', $user->id)->count() > 0;
+    }
+
+    public function isPlayingWith(User $user){
+        return (Game::where('player1', $this->id)->where('player2', $user->id)->count() > 0) || (Game::where('player2', $this->id)->where('player1', $user->id)->count() > 0);
+    }
 }

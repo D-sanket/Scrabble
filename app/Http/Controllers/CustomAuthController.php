@@ -11,9 +11,9 @@ class CustomAuthController extends Controller
 {
     public function register(Request $request){
         $this->validate($request, [
-            'firstname' =>'required|min:3|max:30|regex:/^([a-zA-Z])$/',
+            'firstname' =>'required|min:3|max:30',
             'lastname' => 'required|min:3|max:50',
-            'email' => 'required|email',
+            'email' => 'required|email|unique:users',
             'password' => 'required|min:6|max:15'
         ]);
 

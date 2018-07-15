@@ -9509,3 +9509,7 @@ input[type=range]::-ms-thumb {
           box-shadow: none !important;
 }
 
+a:hover {
+  cursor: pointer !important;
+}
+
