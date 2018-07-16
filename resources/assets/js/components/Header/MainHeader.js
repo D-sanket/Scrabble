@@ -15,7 +15,11 @@ export default class MainHeader extends React.Component {
                     <div className="nav-content">
                         <ul className="tabs tabs-transparent">
                             <li className="tab"><NavLink activeStyle={{color: 'white'}} to="/">Home</NavLink></li>
-                            <li className="tab"><NavLink activeStyle={{color: 'white'}} to="/challenges">Challenges</NavLink></li>
+                            <li className="tab">
+                                <NavLink activeStyle={{color: 'white'}} to="/challenges">
+                                    Challenges
+                                </NavLink>
+                            </li>
                             <li className="tab"><NavLink activeStyle={{color: 'white'}} to="/games">Games</NavLink></li>
                         </ul>
                     </div>

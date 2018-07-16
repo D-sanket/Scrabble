@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Http\Request;
+use Tymon\JWTAuth\Facades\JWTAuth;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,6 +22,10 @@ Route::post('/auth/register', 'CustomAuthController@register');
 Route::post('/auth/login', 'CustomAuthController@login');
 
 Route::middleware(['jwt.auth'])->group(function (){
+    Route::post('/user', function (Request $request){
+        $user = JWTAuth::toUser($request->token);
+        return response()->json($user);
+    });
     Route::post('/users/unchallenged', 'ChallengeController@unchallenged');
     Route::post('/users/challengers', 'ChallengeController@challengers');
     Route::post('/users/sentchallenges', 'ChallengeController@sentChallenges');
