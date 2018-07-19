@@ -3,12 +3,9 @@ import AuthHeader from './AuthHeader';
 import MainHeader from './MainHeader';
 import { connect } from 'react-redux';
 import {getToken} from "../../core";
+import { onNotificationReceived } from '../../actions/notificationActions';
 
 class Header extends React.Component {
-
-    constructor(){
-        super();
-    }
 
     componentDidMount(){
         const self = this;
@@ -18,6 +15,7 @@ class Header extends React.Component {
                 Echo.channel('challenge.'+id)
                     .listen('ChallengeReceived', (e) => {
                         console.log("Notified", e);
+                        self.props.onNotificationReceived(e);
                     });
                 console.log("Listening on challenge-received."+id+"...");
             })
@@ -28,7 +26,7 @@ class Header extends React.Component {
 
     render() {
         if(this.props.authenticated)
-            return <MainHeader unreads={this.state.unreads}/>;
+            return <MainHeader unreads={this.props.unreadNotifications}/>;
         return <AuthHeader/>;
     };
 }
@@ -36,7 +34,16 @@ class Header extends React.Component {
 const mapStateToProps = (state) => {
     return  {
         authenticated: state.authReducer.authenticated,
+        unreadNotifications: state.notificationReducer.unread
     }
 };
 
-export default connect(mapStateToProps)(Header);
+const mapDispatchToProps = (dispatch) => {
+    return  {
+        onNotificationReceived: (data) => {
+            dispatch(onNotificationReceived(data));
+        }
+    }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Header);

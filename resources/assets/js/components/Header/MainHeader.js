@@ -17,7 +17,7 @@ export default class MainHeader extends React.Component {
                             <li className="tab"><NavLink activeStyle={{color: 'white'}} to="/">Home</NavLink></li>
                             <li className="tab">
                                 <NavLink activeStyle={{color: 'white'}} to="/challenges">
-                                    Challenges
+                                    Challenges {this.props.unreads === 0 ? "" : "new"}
                                 </NavLink>
                             </li>
                             <li className="tab"><NavLink activeStyle={{color: 'white'}} to="/games">Games</NavLink></li>
