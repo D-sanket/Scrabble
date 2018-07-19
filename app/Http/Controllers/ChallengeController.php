@@ -102,4 +102,20 @@ class ChallengeController extends Controller
         });
         return response()->json($users->toArray());
     }
+
+    public function games(Request $request){
+        $user = JWTAuth::toUser($request->token);
+
+        $users = Game::all()->where('player2', $user->id)->map(function ($game){
+            return User::where('id', $game->player1)->first();
+        });
+
+        $users1 = Game::all()->where('player1', $user->id)->map(function ($game){
+            return User::where('id', $game->player2)->first();
+        });
+
+        $users = $users->concat($users1);
+
+        return response()->json($users->toArray());
+    }
 }

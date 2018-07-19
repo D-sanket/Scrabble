@@ -2,7 +2,7 @@ import React from 'react';
 import $ from "jquery";
 import {getToken} from "../../core";
 
-export default class AcceptDeclineBtns extends React.Component{
+export default class ContinueLeaveButton extends React.Component{
     constructor(){
         super();
         this.state = {
@@ -11,21 +11,21 @@ export default class AcceptDeclineBtns extends React.Component{
         };
     }
 
-    onAcceptClick(){
-        $("a[id=acceptbtn"+this.props.user.id+"]").parent().parent().addClass("blue-grey lighten-5");
+    onContinueClick(){
+        $("a[id=continuebtn"+this.props.user.id+"]").parent().parent().addClass("blue-grey lighten-5");
         this.setState({
             disabled: true,
             status: 1
         });
         const self = this;
 
-        axios.post('/api/acceptchallenge/'+this.props.user.id, {token: getToken()})
+        axios.post('/api/game/continue/'+this.props.user.id, {token: getToken()})
             .then(function (response) {
                 self.setState({
                     disabled: true,
                     status: 2
                 });
-                M.toast({html: "Challenge accepted...visit the games menu now!!"});
+                console.log(response.data[0]);
             })
             .catch(function (error) {
                 console.error(error);
@@ -34,43 +34,43 @@ export default class AcceptDeclineBtns extends React.Component{
                     disabled: false,
                     status: 0
                 });
-                $("a[id=acceptbtn"+this.props.user.id+"]").parent().parent().removeClass("blue-grey lighten-5");
+                $("a[id=continuebtn"+self.props.user.id+"]").parent().parent().removeClass("blue-grey lighten-5");
             });
     }
 
-    onDeclineClick(){
-        $("a[id=declinebtn"+this.props.user.id+"]").parent().parent().addClass("blue-grey lighten-5");
+    onLeaveClick(){
+        $("a[id=leavebtn"+this.props.user.id+"]").parent().parent().addClass("blue-grey lighten-5");
         this.setState({
             disabled: true,
             status: 1
         });
         const self = this;
 
-        axios.post('/api/declinechallenge/'+this.props.user.id, {token: getToken()})
+        axios.post('/api/game/leave/'+this.props.user.id, {token: getToken()})
             .then(function (response) {
                 self.setState({
                     disabled: true,
                     status: 2
                 });
-                M.toast({html: "Challenge declined!"});
+                M.toast({html: response.data.message});
             })
             .catch(function (error) {
                 console.error(error);
-                M.toast({html: "Something went wrong!"});
+                M.toast({html: "Something went wrong! 1"});
                 self.setState({
                     disabled: false,
                     status: 0
                 });
-                $("a[id=declinetbtn"+this.props.user.id+"]").parent().parent().removeClass("blue-grey lighten-5");
+                $("a[id=leavebtn"+self.props.user.id+"]").parent().parent().removeClass("blue-grey lighten-5");
             });
     }
 
     render(){
         return (
             <div className="secondary-content">
-                <a id={"acceptbtn"+this.props.user.id} className="" onClick={this.onAcceptClick.bind(this)}>
+                <a id={"continuebtn"+this.props.user.id} className="" onClick={this.onContinueClick.bind(this)}>
                     {this.state.status === 0 ? (
-                        <i className="material-icons green-text">double_check</i>
+                        <i className="material-icons green-text">play_arrow</i>
                     ) : (
                         this.state.status === 1 ? (
                             ""
@@ -81,7 +81,7 @@ export default class AcceptDeclineBtns extends React.Component{
                 </a>
                 &nbsp;
                 &nbsp;
-                <a id={"declinebtn"+this.props.user.id} className="" onClick={this.onDeclineClick.bind(this)}>
+                <a id={"leavebtn"+this.props.user.id} className="" onClick={this.onLeaveClick.bind(this)}>
                     {this.state.status === 0 ? (
                         <i className="material-icons red-text">close</i>
                     ) : (

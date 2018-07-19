@@ -8,6 +8,7 @@ const defaultUserListState = {
     unchallengedUsers: [],
     challengedUsers: [],
     challengers: [],
+    games: [],
     loading: true,
 };
 
@@ -42,7 +43,7 @@ function fetchUsers(data, state) {
 
     axios.post('/api/users/'+data, { token: getToken() })
         .then(function (response) {
-            //console.log(response);
+
             const users = [];
             $.each(response.data, function (idx) {
                 users.push(response.data[idx]);
@@ -66,6 +67,13 @@ function fetchUsers(data, state) {
                     state = {
                         ...state,
                         unchallengedUsers: users,
+                        loading: false
+                    };
+                    break;
+                case "games":
+                    state = {
+                        ...state,
+                        games: users,
                         loading: false
                     };
                     break;
