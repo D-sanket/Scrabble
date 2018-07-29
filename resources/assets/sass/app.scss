@@ -8,3 +8,106 @@
 a:hover{
     cursor: pointer !important;
 }
+
+.gameContainer{
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    transition-duration: 1s;
+    transition-timing-function: ease;
+    background: white;
+}
+
+.gameLoaderFullScreen{
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.gameHeaderContainer{
+    display: flex;
+    padding: 1rem;
+}
+
+.gameHeaderContainer > *{
+    width: 50%;
+}
+
+.player1{
+    text-align: left;
+}
+
+.player2{
+    text-align: right;
+}
+
+.board{
+    position: relative;
+}
+
+.boardRow{
+    display: flex;
+    position: relative;
+}
+
+.tile{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid rgba(0, 0, 0, 0.1);
+    font-size: 0.9em;
+}
+
+.tile:hover{
+    cursor: pointer;
+}
+
+.tile.null{
+    background: lightgoldenrodyellow;
+    color: black;
+}
+
+.tile.l2{
+    background: lightblue;
+    color: black;
+}
+
+.tile.l3{
+    background: #2196F3;
+    color: white;
+}
+
+.tile.w2{
+    background: lightpink;
+    color: black;
+}
+
+.tile.w3{
+    background: crimson;
+    color: white;
+}
+
+.tile.filled{
+    background: white;
+    color: black;
+}
+
+.rack{
+    display: flex;
+    width: 100%;
+    height: 100px;
+    background: grey;
+}
+
+.noselect {
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+    -khtml-user-select: none; /* Konqueror HTML */
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+    user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome and Opera */
+}

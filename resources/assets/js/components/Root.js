@@ -10,6 +10,7 @@ import Register from "./Auth/Register";
 import Header from './Header/Header';
 import Challenges from './Main/Challenges';
 import Games from './Main/Games';
+import Game from './Game/Game';
 import FourZeroFour from './FourZeroFour';
 import { store }  from '../core';
 
@@ -27,6 +28,7 @@ class Root extends React.Component {
                             <Route path="/login" component={Login}/>
                             <Route path="/register" component={Register}/>
                             <Route path="/logout" component={Logout}/>
+                            <Route path="/game/:id" component={Game}/>
                             <Route component={FourZeroFour}/>
                         </Switch>
                     </div>

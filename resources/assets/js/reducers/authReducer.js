@@ -22,6 +22,7 @@ export default (state = defaultAuthState, action = {}) => {
             break;
 
         case "ON_LOGOUT":
+            localStorage.removeItem('token');
             state = {
                 ...state,
                 authenticated: false

@@ -1,6 +1,9 @@
 import React from 'react';
 import $ from "jquery";
 import {getToken} from "../../core";
+import { onGameContinued} from "../../actions/gameActions";
+import { store } from "../../core";
+import { Redirect } from 'react-router-dom';
 
 export default class ContinueLeaveButton extends React.Component{
     constructor(){
@@ -12,33 +15,18 @@ export default class ContinueLeaveButton extends React.Component{
     }
 
     onContinueClick(){
+        if(this.state.disabled)
+            return;
         $("a[id=continuebtn"+this.props.user.id+"]").parent().parent().addClass("blue-grey lighten-5");
         this.setState({
             disabled: true,
-            status: 1
+            status: 2
         });
-        const self = this;
-
-        axios.post('/api/game/continue/'+this.props.user.id, {token: getToken()})
-            .then(function (response) {
-                self.setState({
-                    disabled: true,
-                    status: 2
-                });
-                console.log(response.data[0]);
-            })
-            .catch(function (error) {
-                console.error(error);
-                M.toast({html: "Something went wrong!"});
-                self.setState({
-                    disabled: false,
-                    status: 0
-                });
-                $("a[id=continuebtn"+self.props.user.id+"]").parent().parent().removeClass("blue-grey lighten-5");
-            });
     }
 
     onLeaveClick(){
+        if(this.state.disabled)
+            return;
         $("a[id=leavebtn"+this.props.user.id+"]").parent().parent().addClass("blue-grey lighten-5");
         this.setState({
             disabled: true,
@@ -75,7 +63,7 @@ export default class ContinueLeaveButton extends React.Component{
                         this.state.status === 1 ? (
                             ""
                         ) : (
-                            ""
+                            <Redirect to={"/game/"+this.props.user.id}/>
                         )
                     )}
                 </a>

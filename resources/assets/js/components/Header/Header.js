@@ -25,6 +25,8 @@ class Header extends React.Component {
     }
 
     render() {
+        if(this.props.isGameOn)
+            return '';
         if(this.props.authenticated)
             return <MainHeader unreads={this.props.unreadNotifications}/>;
         return <AuthHeader/>;
@@ -34,7 +36,8 @@ class Header extends React.Component {
 const mapStateToProps = (state) => {
     return  {
         authenticated: state.authReducer.authenticated,
-        unreadNotifications: state.notificationReducer.unread
+        unreadNotifications: state.notificationReducer.unread,
+        isGameOn: state.gameReducer.isGameOn
     }
 };
 
